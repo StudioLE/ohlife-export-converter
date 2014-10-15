@@ -48,10 +48,13 @@ function read_ohlife(file, operation) {
 		
 		if(operation != undefined) {
 			if(IsNumeric(operation)) {
-				output_to_console(operation, dates, entries);
+				output_entry(operation, dates, entries);
 			}
 			else if(operation == 'export') {
 				export_files(dates, entries);
+			}
+			else if(operation == 'dates') {
+				output_dates(dates, entries);
 			}
 			else {
 				console.log('Invalid command');
@@ -62,7 +65,7 @@ function read_ohlife(file, operation) {
 }
 
 
-function output_to_console(id, dates, entries) {
+function output_entry(id, dates, entries) {
 	if(id > dates.length - 1) {
 		console.log('No entry found with id: ' + id);
 	}
@@ -73,6 +76,14 @@ function output_to_console(id, dates, entries) {
 		console.log(dates[id]);
 		console.log(entry_date);
 		console.log(entries[id].trim());
+	}
+}
+
+function output_dates (dates, entries) {
+	for(var i in dates) {
+		var d = new Date(dates[i]);
+		var entry_date = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+		console.log(entry_date);
 	}
 }
 
@@ -122,6 +133,7 @@ function export_files(dates, entries) {
 		else if(format == 'enex') {
 			var enex_date = d.toJSON().replace(/-|:|\.\d{3}/gm, '');
 			content = content.replace(/(\r\n\r\n|\n\n|\r\r)/gm,'</div><div><br/></div><div>');
+			content = content.replace(/&/g, '&amp;');
 			enex.push('<note><title>' + entry_date + '</title><content><![CDATA[<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note><div>' + content + '</div></en-note>]]></content><created>' + enex_date + '</created></note>\n\n');
 		}
 	} // for
