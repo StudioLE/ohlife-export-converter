@@ -19,6 +19,7 @@ var log = true;
 // Script
 
 var fs = require('fs');
+var p = require('path');
 
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -115,7 +116,7 @@ function export_files(dates, entries) {
 		content += '\n\n' + entries[i].trim();
 
 		if(format == 'txt') {
-			var path = out_t +'\\'+ dates[i] + '.' + format;
+			var path = out_t + p.sep + dates[i] + '.' + format;
 			write_file(path, content);
 		}
 		else if(format == 'enex') {
