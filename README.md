@@ -29,4 +29,4 @@ The txt export option uses the entry date for the file name.
 
 The Evernote export option sets the title as a human friendly date string and sets the note created date to the entry date.
 
-An option to prefix each entry with the date is available within the script.
+An option to prefix each entry with the date is available within the script: just set `var prefix_date = false;`
