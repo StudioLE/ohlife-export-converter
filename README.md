@@ -21,5 +21,10 @@ Export the entries to a single .enex file for Evernote:
 `node ohlife_export.js ohlife_file.txt export enex`
 
 
+### Methodology
 
+The script splits the entries between the date stamps using the regex: `/\d{4}-\d{2}-\d{2}/g`
 
+The txt export option uses the entry date for the file name.
+
+The Evernote export option sets the title as a human friendly date string.
