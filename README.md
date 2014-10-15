@@ -15,6 +15,10 @@ A Node.js command line utility to convert the single .txt file exported from OhL
 
 `node ohlife_export.js ohlife_file.txt 92`
 
+- List the dates of each entry:
+
+`node ohlife_export.js ohlife_file.txt dates`
+
 - Export the entries to individual .txt files:
 
 `node ohlife_export.js ohlife_file.txt export`
