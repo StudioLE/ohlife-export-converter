@@ -32,5 +32,5 @@ else if(fs.existsSync(config.file)) {
 }
 // If we can't find the file then 
 else {
-	out.error('Could not locate OhLife file ' + config.file)
+	out.error(['Could not locate OhLife file', config.file])
 }
