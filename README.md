@@ -30,6 +30,7 @@ Configuration options are available in `./config.js`
 - Export the entries to either individual `.txt` files or `.enex` for Evernote
 
 `node ohlife_export export txt`
+
 `node ohlife_export export enex`
 
 - Check the validity of the file:
