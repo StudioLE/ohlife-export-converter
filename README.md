@@ -2,12 +2,12 @@
 
 Read and convert OhLife export files to Evernote or individual .txt files
 
-When OhLife closed down unexpectedly in 2014 users were provided with just a single .txt file command comintaing all their journal entries. 
+When OhLife closed down unexpectedly in 2014 users were provided with just a single `.txt` file command comintaing all their journal entries. 
 
 This node.js command line utility can convert the export file into either:
 
-- an .enex file for importing to Evernote or
-- individual .txt files.
+- an `.enex` file for importing to Evernote or
+- individual `.txt` files
 
 ### Config
 
@@ -15,7 +15,11 @@ Configuration options are available in `./config.js`
 
 ### Usage
 
-- List all entries with their ids:
+- Help
+
+`node ohlife_export`
+
+- List all entries and their ids:
 
 `node ohlife_export list`
 
@@ -23,9 +27,10 @@ Configuration options are available in `./config.js`
 
 `node ohlife_export 92`
 
-- Export the entries to either individual txt files or enex (change in config.js)
+- Export the entries to either individual `.txt` files or `.enex` for Evernote
 
-`node ohlife_export export`
+`node ohlife_export export txt`
+`node ohlife_export export enex`
 
 - Check the validity of the file:
 

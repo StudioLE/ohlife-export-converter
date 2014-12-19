@@ -5,16 +5,17 @@ module.exports = {
 	// ---------------------------------------
 
 	// Path to ohlife file `example.txt`
-	file: 'example.txt', 
+	file: 'example.txt',
+
+	// Export to directory
+	export_directory: 'export',
 	
-	// Export format `txt` or `enex`
+	// Default export format `txt` or `enex`
+	// node ohlife_export export
 	format: 'txt',
 
 	// Prefix txt exports with the date
 	prefix_date: true,
-
-	// Export to directory
-	export_directory: 'export',
 
 	// ---------------------------------------
 	// Development settings
