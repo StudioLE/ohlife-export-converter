@@ -82,10 +82,22 @@ function export_files(dates, entries) {
 		out_d.getFullYear(),out_d.getMonth()+1,out_d.getDate(),out_d.getHours(),out_d.getMinutes(),out_d.getSeconds()
 	].join('-')
 
+	var dir = p.join(config.export_directory, out_t)
+
 	if(format == 'txt' && config.write) {
 		// Create a directory for the output
-		fs.mkdirSync(out_t)
-		console.log('Created directory: ' + out_t)
+		try {
+			fs.mkdirSync(dir)
+		} catch(err) {
+			if(err.code == 'ENOENT') {
+				console.error('The export directory does not exist')
+				process.exit()
+			}
+			else {
+				throw err
+			}
+		}
+		console.log('Created directory: ' + dir)
 	}
 	
 	if(format == 'enex') {
@@ -108,7 +120,7 @@ function export_files(dates, entries) {
 		content += '\n\n' + entries[i].trim()
 
 		if(format == 'txt') {
-			var path = out_t + p.sep + dates[i] + '.' + format
+			var path = p.join(dir, dates[i] + '.' + format)
 			write_file(path, content)
 		}
 		else if(format == 'enex') {
@@ -129,7 +141,7 @@ function export_files(dates, entries) {
 
 		output += '</en-export>'
 
-		var path = 'OhLife_Export_' + out_t + '.' + format
+		var path = p.join(config.export_directory, 'OhLife_Export_' + out_t + '.' + format)
 
 		write_file(path, output)
 

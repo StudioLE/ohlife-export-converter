@@ -13,6 +13,9 @@ module.exports = {
 	// Prefix txt exports with the date
 	prefix_date: true,
 
+	// Export to directory
+	export_directory: 'export',
+
 	// ---------------------------------------
 	// Development settings
 	// ---------------------------------------
