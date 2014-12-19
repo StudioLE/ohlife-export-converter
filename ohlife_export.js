@@ -12,17 +12,15 @@ var out = require('./lib/out')
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-var hr = '------------------------------------------------------'
-
 // Format the console output
 out.send([
-	hr,
+	out.hr(),
 	chalk.cyan('OhLife_Export ') + '- Read and convert OhLife export files',
-	hr,
+	out.hr(),
 	chalk.magenta('OhLife file: ') + config.file,
 	chalk.magenta('Export directory: ') + config.export_directory,
 	chalk.magenta('Export format: ') + config.format,
-	hr
+	out.hr()
 ])
 
 
@@ -86,14 +84,14 @@ function output_entry(id, dates, entries) {
 		var entry_date = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
 		out.send([
 			id + '\t' + chalk.white(entry_date),
-			hr,
+			out.hr(),
 			chalk.white(entries[id].trim())
 		])
 	}
 }
 
 function output_dates (dates, entries) {
-	out.send([chalk.white(entries.length) + ' entries were found', hr])
+	out.send([chalk.white(entries.length) + ' entries were found', out.hr()])
 
 	for(var i in dates) {
 		var d = new Date(dates[i])
