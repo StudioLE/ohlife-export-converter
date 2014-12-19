@@ -26,8 +26,8 @@ module.exports = {
 	// Write files
 	write: true,
 
-	// Output logs
-	log: true,
+	// Detailed write logs
+	log: false,
 	
 	// The RegEx to split posts by
 	regex: /\d{4}-\d{2}-\d{2}/g

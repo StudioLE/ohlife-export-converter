@@ -1,0 +1,31 @@
+{
+  "name": "ohlife_export",
+  "version": "0.5.0",
+  "description": "Read and convert OhLife export files to Evernote or individual .txt files",
+  "main": "ohlife_export.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iSpyCreativity/ohlife-export-converter.git"
+  },
+  "keywords": [
+    "ohlife",
+    "export",
+    "enex",
+    "txt",
+    "evernote",
+    "diary",
+    "journal"
+  ],
+  "author": "Laurence Elsdon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iSpyCreativity/ohlife-export-converter/issues"
+  },
+  "homepage": "https://github.com/iSpyCreativity/ohlife-export-converter",
+  "dependencies": {
+    "chalk": "^0.5.1"
+  }
+}

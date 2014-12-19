@@ -2,22 +2,47 @@
 var fs = require('fs')
 var p = require('path')
 
+// Node Modules
+var chalk = require('chalk')
+
 // App Modules
 var config = require('./config')
+var out = require('./lib/out')
 
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
+var hr = '------------------------------------------------------'
 
-if(config.file != undefined) {
+// Format the console output
+out.send([
+	hr,
+	chalk.cyan('OhLife_Export ') + '- Read and convert OhLife export files',
+	hr,
+	chalk.magenta('OhLife file: ') + config.file,
+	chalk.magenta('Export directory: ') + config.export_directory,
+	chalk.magenta('Export format: ') + config.format,
+	hr
+])
+
+
+if(process.argv[2] == 'help') {
+	out.send([
+		'List the dates of each entry',
+		chalk.white('    node ohlife_export'),
+		'Read a specific entry',
+		chalk.white('    node ohlife_export 92'),
+		'Export the entries to either individual txt files or enex (change in config.js)',
+		chalk.white('    node ohlife_export export')
+	])
+	process.exit()
+}
+
+else if(fs.existsSync(config.file)) {
 	read_ohlife(config.file, config.operation)
 }
 else {
-	console.log('You must specify at least the OhLife filename. For example:')
-	console.log('node ohlife_export ohlife_file.txt')
-	console.log('node ohlife_export ohlife_file.txt 92')
-	console.log('node ohlife_export ohlife_file.txt export')
-	console.log('node ohlife_export ohlife_file.txt export enex')
+
 }
 
 
@@ -27,22 +52,21 @@ function read_ohlife(file, operation) {
 		var entries = data.split(config.regex).slice(1)
 		var dates = data.match(config.regex)
 		
-		console.log(entries.length + ' entries were found')
-		console.log(dates.length + ' dates were found')
 		
-		if(operation != undefined) {
-			if(IsNumeric(operation)) {
-				output_entry(operation, dates, entries)
-			}
-			else if(operation == 'export') {
-				export_files(dates, entries)
-			}
-			else if(operation == 'dates') {
-				output_dates(dates, entries)
-			}
-			else {
-				console.log('Invalid command')
-			}
+		if(IsNumeric(operation)) {
+			output_entry(operation, dates, entries)
+		}
+		else if(operation == 'export') {
+			export_files(dates, entries)
+		}
+		else if(operation == 'debug') {
+			out.send([
+				chalk.white(entries.length) + ' entries were found',
+				chalk.white(dates.length) + ' dates were found'
+			])
+		}
+		else {
+			output_dates(dates, entries)
 		}
 
 	})
@@ -51,24 +75,30 @@ function read_ohlife(file, operation) {
 
 function output_entry(id, dates, entries) {
 	if(id > dates.length - 1) {
-		console.log('No entry found with id: ' + id)
+		out.send(chalk.red('No entry with id ') + id)
 	}
 	else {
 		// Format the date
 		var d = new Date(dates[id])
 		var entry_date = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
-		console.log(dates[id])
-		console.log(entry_date)
-		console.log(entries[id].trim())
+		out.send([
+			id + '\t' + chalk.white(entry_date),
+			hr,
+			chalk.white(entries[id].trim())
+		])
 	}
 }
 
 function output_dates (dates, entries) {
+	out.send([chalk.white(entries.length) + ' entries were found', hr])
+
 	for(var i in dates) {
 		var d = new Date(dates[i])
 		var entry_date = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
-		console.log(entry_date)
+		out.ln(i + '\t' + chalk.white(entry_date))
 	}
+
+	out.send()
 }
 
 
@@ -97,7 +127,7 @@ function export_files(dates, entries) {
 				throw err
 			}
 		}
-		console.log('Created directory: ' + dir)
+		if(config.log) out.send('Created directory: ' + dir)
 	}
 	
 	if(format == 'enex') {
@@ -146,8 +176,13 @@ function export_files(dates, entries) {
 		write_file(path, output)
 
 	} // if enex
-
-	console.log('Complete')
+	
+	if(config.write) {
+		out.send(chalk.white('Exporting to directory ') + config.export_directory)
+	}
+	else {
+		out.send('Writing disabled in config')
+	}
 }
 
 
@@ -156,11 +191,11 @@ function write_file(path, data) {
 		// Write the file
 		fs.writeFile(path, data, function(err) {
 			if(err) throw err
-			if(config.log) console.log('Data written to: ' + path)
+			if(config.log) out.send('Data written to: ' + path)
 		})
 	}
 	else {
-		if(config.log) console.log('Writing disabled: ' + path)
+		if(config.log) out.send('Writing disabled: ' + path)
 	}
 }
 
