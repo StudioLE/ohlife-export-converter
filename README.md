@@ -11,16 +11,15 @@ This node.js command line utility can convert the export file into either:
 
 ### Install
 
-#### Using NPM
+- Using NPM
 
 `cd new_directory`
+
 `npm install ohlife_export`
 
-#### Manual
+- Manual
 
-Download and extract to a clean directory
-
-[Zip Archive](https://github.com/iSpyCreativity/ohlife-export-converter/archive/master.zip)
+Download the [latest zip from GitHub](https://github.com/iSpyCreativity/ohlife-export-converter/archive/master.zip) and extract to a clean directory
 
 ### Config
 
