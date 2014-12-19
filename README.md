@@ -9,6 +9,19 @@ This node.js command line utility can convert the export file into either:
 - an `.enex` file for importing to Evernote or
 - individual `.txt` files
 
+### Install
+
+#### Using NPM
+
+`cd new_directory`
+`npm install ohlife_export`
+
+#### Manual
+
+Download and extract to a clean directory
+
+[Zip Archive](https://github.com/iSpyCreativity/ohlife-export-converter/archive/master.zip)
+
 ### Config
 
 Configuration options are available in `./config.js`
