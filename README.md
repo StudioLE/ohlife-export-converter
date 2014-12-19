@@ -15,21 +15,21 @@ Configuration options are available in `./config.js`
 
 ### Usage
 
-- Count the number of entries:
+- List all entries with their ids:
 
-`node ohlife_export`
+`node ohlife_export list`
 
-- Read a specific number (starts at 0):
+- Read a specific entry (starts at 0):
 
 `node ohlife_export 92`
 
-- List the dates of each entry:
-
-`node ohlife_export dates`
-
-- Export the entries to either individual txt files or enex (change in /config.js)
+- Export the entries to either individual txt files or enex (change in config.js)
 
 `node ohlife_export export`
+
+- Check the validity of the file:
+
+`node ohlife_export debug`
 
 
 ### Methodology

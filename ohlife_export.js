@@ -26,23 +26,24 @@ out.send([
 ])
 
 
-if(process.argv[2] == 'help') {
+if(config.operation == undefined) {
 	out.send([
-		'List the dates of each entry',
-		chalk.white('    node ohlife_export'),
+		'List of entries',
+		chalk.white('    node ohlife_export list'),
 		'Read a specific entry',
 		chalk.white('    node ohlife_export 92'),
 		'Export the entries to either individual txt files or enex (change in config.js)',
-		chalk.white('    node ohlife_export export')
+		chalk.white('    node ohlife_export export'),
+		'Check the validity of the file',
+		chalk.white('    node ohlife_export debug')
 	])
 	process.exit()
 }
-
 else if(fs.existsSync(config.file)) {
 	read_ohlife(config.file, config.operation)
 }
 else {
-
+	out.send(chalk.white('Could not locate OhLife file ') + config.file)
 }
 
 
@@ -56,6 +57,9 @@ function read_ohlife(file, operation) {
 		if(IsNumeric(operation)) {
 			output_entry(operation, dates, entries)
 		}
+		else if(operation == 'list') {
+			output_dates(dates, entries)
+		}
 		else if(operation == 'export') {
 			export_files(dates, entries)
 		}
@@ -66,7 +70,6 @@ function read_ohlife(file, operation) {
 			])
 		}
 		else {
-			output_dates(dates, entries)
 		}
 
 	})
