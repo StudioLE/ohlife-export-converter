@@ -1,47 +1,31 @@
-
-// Config
-
-var prefix_date = false
-var default_format = 'txt'
-var regex = /\d{4}-\d{2}-\d{2}/g
-
-// Fetch args
-
-var file = process.argv[2] //'ohlife_20141014.txt'
-var operation = process.argv[3]
-var format = process.argv[4] // 'txt' or 'enex'
-
-// Dev config
-
-var write = true
-var log = true
-
-// Script
-
+// Core Modules
 var fs = require('fs')
 var p = require('path')
+
+// App Modules
+var config = require('./config')
 
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
-if(file != undefined) {
-	read_ohlife(file, operation)
+if(config.file != undefined) {
+	read_ohlife(config.file, config.operation)
 }
 else {
 	console.log('You must specify at least the OhLife filename. For example:')
-	console.log('node ohlife_export.js ohlife_file.txt')
-	console.log('node ohlife_export.js ohlife_file.txt 92')
-	console.log('node ohlife_export.js ohlife_file.txt export')
-	console.log('node ohlife_export.js ohlife_file.txt export enex')
+	console.log('node ohlife_export ohlife_file.txt')
+	console.log('node ohlife_export ohlife_file.txt 92')
+	console.log('node ohlife_export ohlife_file.txt export')
+	console.log('node ohlife_export ohlife_file.txt export enex')
 }
 
 
 function read_ohlife(file, operation) {
 	fs.readFile(file, 'utf-8', function(err, data) {
 		if (err) throw err
-		var entries = data.split(regex).slice(1)
-		var dates = data.match(regex)
+		var entries = data.split(config.regex).slice(1)
+		var dates = data.match(config.regex)
 		
 		console.log(entries.length + ' entries were found')
 		console.log(dates.length + ' dates were found')
@@ -89,6 +73,8 @@ function output_dates (dates, entries) {
 
 
 function export_files(dates, entries) {
+	
+	var format = config.format
 
 	// Format the date for the output directory
 	var out_d = new Date()
@@ -96,12 +82,7 @@ function export_files(dates, entries) {
 		out_d.getFullYear(),out_d.getMonth()+1,out_d.getDate(),out_d.getHours(),out_d.getMinutes(),out_d.getSeconds()
 	].join('-')
 
-	// If format is not specified in the command line use default
-	if(format == undefined) {
-		format = default_format
-	}
-
-	if(format == 'txt' && write) {
+	if(format == 'txt' && config.write) {
 		// Create a directory for the output
 		fs.mkdirSync(out_t)
 		console.log('Created directory: ' + out_t)
@@ -120,7 +101,7 @@ function export_files(dates, entries) {
 		var content = ''
 		
 		// Format the output
-		if(prefix_date) {
+		if(config.prefix_date) {
 			content = entry_date
 		}
 		
@@ -159,15 +140,15 @@ function export_files(dates, entries) {
 
 
 function write_file(path, data) {
-	if(write) {
+	if(config.write) {
 		// Write the file
 		fs.writeFile(path, data, function(err) {
 			if(err) throw err
-			if(log) console.log('Data written to: ' + path)
+			if(config.log) console.log('Data written to: ' + path)
 		})
 	}
 	else {
-		if(log) console.log('Writing disabled: ' + path)
+		if(config.log) console.log('Writing disabled: ' + path)
 	}
 }
 
