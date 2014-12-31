@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iSpyCreativity/ohlife-export-converter.git"
+    "url": "https://github.com/StudioLE/ohlife-export-converter.git"
   },
   "keywords": [
     "ohlife",
@@ -22,10 +22,11 @@
   "author": "Laurence Elsdon",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iSpyCreativity/ohlife-export-converter/issues"
+    "url": "https://github.com/StudioLE/ohlife-export-converter/issues"
   },
-  "homepage": "https://github.com/iSpyCreativity/ohlife-export-converter",
+  "homepage": "https://github.com/StudioLE/ohlife-export-converter",
   "dependencies": {
-    "chalk": "^0.5.1"
+    "chalk": "^0.5.1",
+    "sqwk": "^0.1.0"
   }
 }
