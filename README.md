@@ -11,15 +11,24 @@ This node.js command line utility can convert the export file into either:
 
 ### Install
 
-- Using NPM
+The application requires Node.js and npm to be installed, instructions can be found at [nodejs.org](http://nodejs.org/). Then follow one of the three methods below to download the application.
 
-`cd new_directory`
+##### Git Clone
+```
+git clone https://github.com/StudioLE/ohlife-export-converter ohlife_export
+cd ohlife_export
+npm update
+```
 
-`npm install ohlife_export`
+##### NPM (CURRENTLY UNSUPPORTED)
+```
+npm install -g ohlife_export
+```
 
-- Manual
+##### Manual
 
-Download the [latest zip from GitHub](https://github.com/iSpyCreativity/ohlife-export-converter/archive/master.zip) and extract to a clean directory
+- Download the [latest zip from GitHub](https://github.com/StudioLE/ohlife-export-converter/archive/master.zip) and extract to a clean directory
+- Then run `npm update` within the directory
 
 ### Config
 
@@ -27,28 +36,32 @@ Configuration options are available in `./config.js`
 
 ### Usage
 
-- Help
+Help
+```
+node ohlife_export
+```
 
-`node ohlife_export`
+List all entries and their ids:
+```
+node ohlife_export list
+```
 
-- List all entries and their ids:
+Read a specific entry (starts at 0):
+```
+node ohlife_export 92`
+```
 
-`node ohlife_export list`
+Export the entries to either individual `.txt` files or `.enex` for Evernote
+```
+node ohlife_export export txt
 
-- Read a specific entry (starts at 0):
+node ohlife_export export enex
+```
 
-`node ohlife_export 92`
-
-- Export the entries to either individual `.txt` files or `.enex` for Evernote
-
-`node ohlife_export export txt`
-
-`node ohlife_export export enex`
-
-- Check the validity of the file:
-
-`node ohlife_export debug`
-
+Check the validity of the file:
+```
+node ohlife_export debug
+```
 
 ### Methodology
 
